@@ -55,110 +55,70 @@ bd.pendown()
 bd.left(90)
 
 #fonction pour tracer les différents nucléotides
-def nucleotide_bg(base) :
-    gd = 1
-    bg.color(couleur_chaine)
-    bg.pensize(largeur_chaine)
-    bg.forward(longueur_nuc * 1.5)
-    bg.right(90 * gd)
-    bg.pensize(largeur_nuc)
+def nucleotide(base, orientation) :
+    if orientation == bd:
+        gd = -1
+    else:
+        gd = 1
+    orientation.color(couleur_chaine)
+    orientation.pensize(largeur_chaine)
+    orientation.forward(longueur_nuc * 1.5)
+    orientation.right(90 * gd)
+    orientation.pensize(largeur_nuc)
     if base == "A":
-        bg.pencolor("red")
-        bg.forward(ecart_brin)
-        bg.right(45 * gd)
-        bg.forward(long_hyp2 / 2)
-        bg.right(90 * gd)
-        bg.forward(long_hyp2 / 2)
-        bg.right(45 * gd)
-        bg.forward(ecart_brin)
+        orientation.pencolor("red")
+        orientation.forward(ecart_brin)
+        orientation.right(45 * gd)
+        orientation.forward(long_hyp2 / 2)
+        orientation.right(90 * gd)
+        orientation.forward(long_hyp2 / 2)
+        orientation.right(45 * gd)
+        orientation.forward(ecart_brin)
     if base == "T":
-        bg.color("green")
-        bg.forward(ecart_brin * 1.5)
-        bg.right(135 * gd)
-        bg.forward(long_hyp2 / 2)
-        bg.right(-90 * gd)
-        bg.forward(long_hyp2 / 2)
-        bg.right(135 * gd)
-        bg.forward(ecart_brin * 1.5)
+        orientation.color("green")
+        orientation.forward(ecart_brin * 1.5)
+        orientation.right(135 * gd)
+        orientation.forward(long_hyp2 / 2)
+        orientation.right(-90 * gd)
+        orientation.forward(long_hyp2 / 2)
+        orientation.right(135 * gd)
+        orientation.forward(ecart_brin * 1.5)
     if base == "C":
-        bg.color("blue")
-        bg.forward(ecart_brin * 1.25)
-        bg.right(180)
-        bg.circle(gd * longueur_nuc / 2, 180)
-        bg.right(180)
-        bg.forward(ecart_brin * 1.25)
+        orientation.color("blue")
+        orientation.forward(ecart_brin * 1.25)
+        orientation.right(180)
+        orientation.circle(gd * longueur_nuc / 2, 180)
+        orientation.right(180)
+        orientation.forward(ecart_brin * 1.25)
     if base == "G":
-        bg.color("yellow")
-        bg.forward(ecart_brin * 1.25)
-        bg.right(180 * gd)
-        bg.circle(gd * longueur_nuc / 2, -180)
-        bg.right(180 * gd)
-        bg.forward(ecart_brin * 1.25)
-    bg.right(90 * gd)
-    bg.color(couleur_chaine)
-    bg.pensize(largeur_chaine)
-    bg.forward(longueur_nuc * 1.5)
-
-def nucleotide_bd(base) :
-    gd = -1
-    bd.color(couleur_chaine)
-    bd.pensize(largeur_chaine)
-    bd.forward(longueur_nuc * 1.5)
-    bd.right(90 * gd)
-    bd.pensize(largeur_nuc)
-    if base == "A":
-        bd.pencolor("red")
-        bd.forward(ecart_brin)
-        bd.right(45 * gd)
-        bd.forward(long_hyp2 / 2)
-        bd.right(90 * gd)
-        bd.forward(long_hyp2 / 2)
-        bd.right(45 * gd)
-        bd.forward(ecart_brin)
-    if base == "T":
-        bd.color("green")
-        bd.forward(ecart_brin * 1.5)
-        bd.right(135 * gd)
-        bd.forward(long_hyp2 / 2)
-        bd.right(-90 * gd)
-        bd.forward(long_hyp2 / 2)
-        bd.right(135 * gd)
-        bd.forward(ecart_brin * 1.5)
-    if base == "C":
-        bd.color("blue")
-        bd.forward(ecart_brin * 1.25)
-        bd.right(180)
-        bd.circle(gd * longueur_nuc / 2, 180)
-        bd.right(180)
-        bd.forward(ecart_brin * 1.25)
-    if base == "G":
-        bd.color("yellow")
-        bd.forward(ecart_brin * 1.25)
-        bd.right(180 * gd)
-        bd.circle(gd * longueur_nuc / 2, -180)
-        bd.right(180 * gd)
-        bd.forward(ecart_brin * 1.25)
-    bd.right(90 * gd)
-    bd.color(couleur_chaine)
-    bd.pensize(largeur_chaine)
-    bd.forward(longueur_nuc * 1.5)
-
+        orientation.color("yellow")
+        orientation.forward(ecart_brin * 1.25)
+        orientation.right(180 * gd)
+        orientation.circle(gd * longueur_nuc / 2, -180)
+        orientation.right(180 * gd)
+        orientation.forward(ecart_brin * 1.25)
+    orientation.right(90 * gd)
+    orientation.color(couleur_chaine)
+    orientation.pensize(largeur_chaine)
+    orientation.forward(longueur_nuc * 1.5)
 
 #Ecriture de la séquence des deux brins à partir de la lecture de la sequence
 for i in range(longueur_brin):
-    nucleotide_bg(sequence[i])
+    nucleotide(sequence[i], bg)
     if sequence[i] == "A":
         complement = "T"
-        nucleotide_bd(complement)
+        nucleotide(complement, bd)
     if sequence[i] == "T":
         complement = "A"
-        nucleotide_bd(complement)
+        nucleotide(complement, bd)
     if sequence[i] == "C":
         complement = "G"
-        nucleotide_bd(complement)
+        nucleotide(complement, bd)
     if sequence[i] == "G":
         complement = "C"
-        nucleotide_bd(complement)
+        nucleotide(complement, bd)
+
+
 
 
 #permet de ne pas faire l'application à la fin du programme

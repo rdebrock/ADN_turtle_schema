@@ -19,7 +19,7 @@ longueur_nuc = 40
 largeur_nuc = 4;
 long_hyp2 = 0
     #longueur_brin et sequence
-longueur_brin = 0
+longueur_brin = 1
 sequence = 0
     #vitesse
 vitesse_bg = 0
@@ -27,12 +27,15 @@ vitesse_bd = 0
     #taille
 multi = 0
 
-
-#Ouverture et lecture du fichier sequence.txt
-with open("sequence.txt", "r+") as file:
-    sequence = file.read()
-    file.close()
+#demande à l'utilisateur la séquence.
+sequence = turtle.textinput("sequence", "Indiquer votre séquence (ne rien mettre pour lire sequence.txt")
+    #Si la sequence est vide, il va ouvrir et lire le fichier sequence.txt
+if sequence == "":
+    with open("sequence.txt", "r+") as file:
+        sequence = file.read()
+        file.close()
 longueur_brin = len(sequence)
+
 
 #taille de la molécule en fonction de la longueur de la sequence
 multi = 2 * (4/longueur_brin)
@@ -65,8 +68,9 @@ def nucleotide(base, orientation) :
     orientation.forward(longueur_nuc * 1.5)
     orientation.right(90 * gd)
     orientation.pensize(largeur_nuc)
+    orientation.begin_fill()
     if base == "A":
-        orientation.pencolor("red")
+        orientation.color("red")
         orientation.forward(ecart_brin)
         orientation.right(45 * gd)
         orientation.forward(long_hyp2 / 2)
@@ -97,6 +101,7 @@ def nucleotide(base, orientation) :
         orientation.circle(gd * longueur_nuc / 2, -180)
         orientation.right(180 * gd)
         orientation.forward(ecart_brin * 1.25)
+    orientation.end_fill()
     orientation.right(90 * gd)
     orientation.color(couleur_chaine)
     orientation.pensize(largeur_chaine)

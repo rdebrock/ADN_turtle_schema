@@ -48,16 +48,15 @@ fontsize = int(15*multi)
 style = ('Courier', fontsize, 'bold')
 
 #position et orientation de départ des deux brins
-bg.penup()
-bg.speed(vitesse_bg)
-bg.setposition(pos_x, pos_y)
-bg.left(90)
-bg.pendown()
-bd.speed(vitesse_bd)
-bd.penup()
-bd.setposition(pos_x + ecart_brin * 3, pos_y)
-bd.pendown()
-bd.left(90)
+def start(orientation):
+    orientation.penup()
+    orientation.speed(vitesse_bg)
+    if orientation == bg:
+        bg.setposition(pos_x, pos_y)
+    elif orientation == bd:
+        bd.setposition(pos_x + ecart_brin * 3, pos_y)
+    orientation.pendown()
+    orientation.left(90)
 
 #fonction pour tracer les différents nucléotides et indiquer la lettre.
 def nucleotide(base, orientation) :
@@ -112,6 +111,10 @@ def nucleotide(base, orientation) :
     elif orientation == bd:
         orientation.write(base + ' ', font=style, align='right')
     orientation.forward(longueur_nuc * 1.5)
+
+#positionner des deux turtles à partie de la fonction start
+start(bg)
+start(bd)
 
 #Ecriture de la séquence des deux brins à partir de la lecture de la sequence
 for i in range(longueur_brin):

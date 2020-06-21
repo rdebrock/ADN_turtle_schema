@@ -19,22 +19,31 @@ longueur_nuc = 40
 largeur_nuc = 4;
 long_hyp2 = 0
     #longueur_brin et sequence
-longueur_brin = 1
+longueur_brin = 10
 sequence = 0
     #vitesse
 vitesse_bg = 0
 vitesse_bd = 0
     #taille
 multi = 0
-
+error = 1
+compteur_check = 0
 #demande à l'utilisateur la séquence.
-sequence = turtle.textinput("sequence", "Indiquer votre séquence (ne rien mettre pour lire sequence.txt")
-    #Si la sequence est vide, il va ouvrir et lire le fichier sequence.txt
-if sequence == "":
-    with open("sequence.txt", "r+") as file:
-        sequence = file.read()
-        file.close()
-longueur_brin = len(sequence)
+while error == 1 and compteur_check != longueur_brin:
+    error = 1
+    sequence = turtle.textinput("sequence", "Indiquer votre séquence (ne rien mettre pour lire sequence.txt")
+        #Si la sequence est vide, il va ouvrir et lire le fichier sequence.txt
+    if sequence == "":
+        with open("sequence.txt", "r+") as file:
+            sequence = file.read()
+            file.close()
+    longueur_brin = len(sequence)
+#on vérifie l'exactitude de la séquence.
+    for i in range(longueur_brin):
+        if sequence[i] == "A" or sequence[i] == "T" or sequence[i] == "C" or sequence[i] == "G":
+            compteur_check = compteur_check + 1
+        else:
+            print('Votre séquence est incorrecte : {} en position {} n est pas un nucléotide'. format(sequence[i],i+1))
 
 
 #taille de la molécule en fonction de la longueur de la sequence

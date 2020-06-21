@@ -44,6 +44,8 @@ largeur = 4 * multi
 ecart_brin = ecart_brin * multi
 longueur_nuc = longueur_nuc * multi
 long_hyp2 = round(ecart_brin / math.sin(45))
+fontsize = int(15*multi)
+style = ('Courier', fontsize, 'bold')
 
 #position et orientation de départ des deux brins
 bg.penup()
@@ -57,7 +59,7 @@ bd.setposition(pos_x + ecart_brin * 3, pos_y)
 bd.pendown()
 bd.left(90)
 
-#fonction pour tracer les différents nucléotides
+#fonction pour tracer les différents nucléotides et indiquer la lettre.
 def nucleotide(base, orientation) :
     if orientation == bd:
         gd = -1
@@ -78,7 +80,7 @@ def nucleotide(base, orientation) :
         orientation.forward(long_hyp2 / 2)
         orientation.right(45 * gd)
         orientation.forward(ecart_brin)
-    if base == "T":
+    elif base == "T":
         orientation.color("green")
         orientation.forward(ecart_brin * 1.5)
         orientation.right(135 * gd)
@@ -87,14 +89,14 @@ def nucleotide(base, orientation) :
         orientation.forward(long_hyp2 / 2)
         orientation.right(135 * gd)
         orientation.forward(ecart_brin * 1.5)
-    if base == "C":
+    elif base == "C":
         orientation.color("blue")
         orientation.forward(ecart_brin * 1.25)
         orientation.right(180)
         orientation.circle(gd * longueur_nuc / 2, 180)
         orientation.right(180)
         orientation.forward(ecart_brin * 1.25)
-    if base == "G":
+    elif base == "G":
         orientation.color("yellow")
         orientation.forward(ecart_brin * 1.25)
         orientation.right(180 * gd)
@@ -105,6 +107,10 @@ def nucleotide(base, orientation) :
     orientation.right(90 * gd)
     orientation.color(couleur_chaine)
     orientation.pensize(largeur_chaine)
+    if orientation == bg:
+        orientation.write(' ' + base, font=style, align='left')
+    elif orientation == bd:
+        orientation.write(base + ' ', font=style, align='right')
     orientation.forward(longueur_nuc * 1.5)
 
 #Ecriture de la séquence des deux brins à partir de la lecture de la sequence
